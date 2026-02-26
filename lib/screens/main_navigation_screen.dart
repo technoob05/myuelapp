@@ -88,7 +88,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Phòng Đào Tạo',
+                              'Giao tiếp kinh doanh',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -97,7 +97,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Đổi phòng học môn Kinh tế vĩ mô sang phòng B1.205 (Mới)',
+                              'Đổi phòng học môn Giao tiếp kinh doanh sang phòng B1.205 (Mới)',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.textBody,

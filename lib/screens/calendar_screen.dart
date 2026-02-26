@@ -157,10 +157,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddDeadlineModal,
-        backgroundColor: AppColors.primaryBlue,
-        child: const Icon(LucideIcons.plus, color: Colors.white),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24.0, right: 8.0),
+        child: FloatingActionButton(
+          onPressed: _showAddDeadlineModal,
+          elevation: 4,
+          backgroundColor: AppColors.primaryBlue,
+          child: const Icon(LucideIcons.plus, color: Colors.white),
+        ),
       ),
     );
   }

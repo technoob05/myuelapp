@@ -78,21 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'My UEL',
-                style: AppTextStyles.headerTitle.copyWith(
-                  fontSize: 32,
-                  shadows: [
-                    Shadow(
-                      color: Colors.white.withValues(alpha: 0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-              ),
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
@@ -111,6 +97,20 @@ class _HomeScreenState extends State<HomeScreen>
                   width: 44,
                   height: 44,
                   fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Text(
+                'My UEL',
+                style: AppTextStyles.headerTitle.copyWith(
+                  fontSize: 32,
+                  shadows: [
+                    Shadow(
+                      color: Colors.white.withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -495,15 +495,6 @@ class _HomeScreenState extends State<HomeScreen>
                           MaterialPageRoute(
                             builder: (context) => const BlackBoxScreen(),
                           ),
-                        ),
-                      ),
-                      FeatureIconButton(
-                        icon: LucideIcons.shoppingBag,
-                        label: 'Y-Shop',
-                        onTap: () => _navigateToGeneric(
-                          context,
-                          'Y-Shop',
-                          LucideIcons.shoppingBag,
                         ),
                       ),
                       FeatureIconButton(

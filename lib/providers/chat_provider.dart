@@ -5,24 +5,24 @@ class ChatProvider with ChangeNotifier {
   final List<ChatThread> _threads = [
     ChatThread(
       id: '1',
-      name: 'TS. Nguyễn Văn A - Khoa CNTT',
+      name: 'PhD Nguyễn Thị Nhật Minh - Khoa QTKD',
       lastMessage:
-          'Chào em, file hướng dẫn đồ án môn Hệ điều hành thầy đã upload lên khóa học trên hệ thống e-learning rồi nhé.',
+          'Chào em, file hướng dẫn project giữa kì cô đã upload lên khóa học trên hệ thống LMS rồi nhé.',
       time: '14:30',
       unreadCount: 1,
       isOnline: true,
       isGroup: false,
       messages: [
-        ChatMessage(text: 'Dạ em chào thầy ạ.', isMe: true, time: '14:00'),
+        ChatMessage(text: 'Dạ em chào cô ạ.', isMe: true, time: '14:00'),
         ChatMessage(
           text:
-              'Thầy cho em hỏi tuần này nhóm em báo cáo đồ án phần phân trang bộ nhớ, vậy tụi em dùng thư viện ngoài được không ạ?',
+              'Cô cho em hỏi tuần này nhóm em báo cáo project, thủ tục nộp bài như thế nào ạ?',
           isMe: true,
           time: '14:05',
         ),
         ChatMessage(
           text:
-              'Chào em, file hướng dẫn đồ án môn Hệ điều hành thầy đã upload lên khóa học trên hệ thống e-learning rồi nhé. Trong guideline đã quy định rất rõ những gì được dùng và không được dùng.',
+              'Chào em, file hướng dẫn project giữa kì cô đã upload lên khóa học trên hệ thống LMS rồi nhé.',
           isMe: false,
           time: '14:30',
         ),
@@ -30,7 +30,7 @@ class ChatProvider with ChangeNotifier {
     ),
     ChatThread(
       id: '2',
-      name: 'Nhóm Lớp K24417B - Thống kê ứng dụng',
+      name: 'K234102E',
       lastMessage:
           'Minh Mẫn: Các bạn nhớ tối nay 22h deadline nộp file bài tập nhóm nhen!',
       time: 'Hôm qua',
@@ -59,34 +59,22 @@ class ChatProvider with ChangeNotifier {
     ),
     ChatThread(
       id: '3',
-      name: 'ThS. Trần Thị B - Cố vấn học tập',
-      lastMessage:
-          'Em nhớ cập nhật điểm rèn luyện cá nhân trên trang sinh viên trước thứ 6 này để cô duyệt nha.',
+      name: '[UEL] QTTH_ 252EBM505502',
+      lastMessage: 'Linh: Vậy mình học bù sáng thứ 7 nha các em.',
       time: 'T2',
       unreadCount: 0,
       isOnline: true,
-      isGroup: false,
+      isGroup: true,
       messages: [
         ChatMessage(
           text:
-              'Dạ cô ơi, điều kiện để được xét học bổng khuyến khích học tập kỳ tới là cần GPA bao nhiêu vậy ạ?',
-          isMe: true,
+              'Ngô Dung: Lớp mình bạn nào có đăng ký đi hội thảo sáng nay thì tranh thủ điểm danh ở hội trường nha các em.',
+          isMe: false,
           time: '09:00',
         ),
+        ChatMessage(text: 'Dạ vâng ạ.', isMe: true, time: '09:15'),
         ChatMessage(
-          text:
-              'Tùy theo số lượng sinh viên đăng ký nha em, nhưng thường để an toàn thì điểm phải từ 8.5 trở lên em ạ.',
-          isMe: false,
-          time: '10:30',
-        ),
-        ChatMessage(
-          text: 'Dạ vâng, em cảm ơn cô ạ.',
-          isMe: true,
-          time: '10:35',
-        ),
-        ChatMessage(
-          text:
-              'Em nhớ cập nhật điểm rèn luyện cá nhân trên trang sinh viên trước thứ 6 này để cô duyệt nha.',
+          text: 'Linh: Vậy mình học bù sáng thứ 7 nha các em.',
           isMe: false,
           time: 'T2',
         ),
@@ -94,8 +82,8 @@ class ChatProvider with ChangeNotifier {
     ),
     ChatThread(
       id: '4',
-      name: 'Nhóm đồ án LTUD Mobile',
-      lastMessage: 'Tuấn: Nay code xong push lên git nhớ báo nha.',
+      name: '[GTKD] FAMILY MART',
+      lastMessage: 'Lực: Nhớ làm bài đúng deadline nhé.',
       time: 'T7 tuần trước',
       unreadCount: 5,
       isOnline: false,
@@ -112,7 +100,7 @@ class ChatProvider with ChangeNotifier {
           time: '19:15',
         ),
         ChatMessage(
-          text: 'Tuấn: Nay code xong push lên git nhớ báo nha.',
+          text: 'Lực: Nhớ làm bài đúng deadline nhé.',
           isMe: false,
           time: 'T7 tuần trước',
         ),
