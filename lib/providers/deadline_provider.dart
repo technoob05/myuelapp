@@ -5,31 +5,34 @@ class DeadlineProvider with ChangeNotifier {
   final List<DeadlineItem> _deadlines = [
     DeadlineItem(
       id: '1',
-      title: 'Thi Giữa Kỳ - Thương mại điện tử',
-      subject: 'Thương mại điện tử - Online 19',
-      time: 'Hôm nay, 10:00',
-      status: 'urgent',
+      title: 'Thi Cuối Kỳ - Quản trị thương hiệu (E)',
+      subject:
+          'Ngày thi: 28/03/2026 - Giờ thi: 12g30\nPhòng: A.604 - Ghi chú: Tự luận',
+      time: '28/03/2026',
+      status: 'normal',
     ),
     DeadlineItem(
       id: '2',
-      title: 'Nộp tiểu luận môn Digital Marketing',
-      subject: 'Digital Marketing (Cô Trần)',
-      time: 'Ngày mai, 23:59',
-      status: 'urgent',
+      title: 'Thi Cuối Kỳ - Thương mại điện tử (E)',
+      subject:
+          'Ngày thi: 29/03/2026 - Giờ thi: 10g00\nPhòng: Online 19 - Ghi chú: Tiểu luận, Đồ án',
+      time: '29/03/2026',
+      status: 'normal',
     ),
     DeadlineItem(
       id: '3',
-      title: 'Thi Cuối Kỳ - Quản trị thương hiệu (E)',
-      subject: 'Phòng A.604 - Ghi chú: Thi tự luận',
-      time: '28/03/2026, 12:30',
+      title: 'Thi Cuối Kỳ - Giao tiếp kinh doanh (E)',
+      subject:
+          'Ngày thi: 02/04/2026 - Giờ thi: 12g30\nPhòng: A.310 bis - Ghi chú: Thi trên Laptop cá nhân',
+      time: '02/04/2026',
       status: 'normal',
     ),
     DeadlineItem(
       id: '4',
-      title: 'Thi Cuối Kỳ - Giao tiếp kinh doanh (E)',
-      subject: 'Phòng A.310 bis - Ghi chú: Thi trên Laptop cá nhân',
-      time: '02/04/2026, 12:30',
-      status: 'normal',
+      title: 'Nộp tiểu luận môn Digital Marketing',
+      subject: 'Giảng viên: Cô Trần\nHạn chót nộp qua nhóm',
+      time: 'Ngày mai, 23:59',
+      status: 'urgent',
     ),
     DeadlineItem(
       id: '5',

@@ -158,12 +158,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ],
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 24.0, right: 8.0),
-        child: FloatingActionButton(
-          onPressed: _showAddDeadlineModal,
-          elevation: 4,
-          backgroundColor: AppColors.primaryBlue,
-          child: const Icon(LucideIcons.plus, color: Colors.white),
+        padding: const EdgeInsets.only(bottom: 16.0, right: 8.0),
+        child: SizedBox(
+          width: 56,
+          height: 56,
+          child: FloatingActionButton(
+            onPressed: _showAddDeadlineModal,
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                28,
+              ), // Perfect round shape like chat bubble
+            ),
+            backgroundColor: AppColors.primaryBlue,
+            child: const Icon(LucideIcons.plus, color: Colors.white, size: 28),
+          ),
         ),
       ),
     );
