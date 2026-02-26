@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AnalyticsProvider with ChangeNotifier {
-  double _gpa = 8.45;
-  int _creditsEarned = 110;
+  final double _gpa = 8.45;
+  final int _creditsEarned = 110;
   final int _totalCredits = 120;
 
   final List<Map<String, dynamic>> _chartData = [
