@@ -3,23 +3,9 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_text_styles.dart';
 
-class DeadlineItem {
-  final String id;
-  final String title;
-  final String subject;
-  final String time;
-  final String status; // 'urgent', 'normal', 'overdue'
-  bool isCompleted;
-
-  DeadlineItem({
-    required this.id,
-    required this.title,
-    required this.subject,
-    required this.time,
-    required this.status,
-    this.isCompleted = false,
-  });
-}
+import 'package:provider/provider.dart';
+import '../providers/deadline_provider.dart';
+import '../models/deadline_model.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -29,51 +15,8 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  final List<DeadlineItem> _deadlines = [
-    DeadlineItem(
-      id: '1',
-      title: 'Thi Giữa Kỳ - Toán cao cấp A1',
-      subject: 'Toán cao cấp A1 - Phòng C1.102',
-      time: 'Hôm nay, 13:30',
-      status: 'urgent',
-    ),
-    DeadlineItem(
-      id: '2',
-      title: 'Nộp Tiểu luận Triết học Mác - Lênin',
-      subject: 'Triết học Mác - Lênin (Thầy B)',
-      time: 'Ngày mai, 23:59',
-      status: 'urgent',
-    ),
-    DeadlineItem(
-      id: '3',
-      title: 'Tham gia seminar Kỹ năng mềm',
-      subject: 'Hoạt động Đoàn - Hội HK1',
-      time: 'Thứ 6, 08:00',
-      status: 'normal',
-    ),
-    DeadlineItem(
-      id: '4',
-      title: 'Nộp Đồ án - Lập trình ứng dụng Web',
-      subject: 'Lập trình Web - K24417',
-      time: 'Chủ nhật, 23:59',
-      status: 'normal',
-    ),
-    DeadlineItem(
-      id: '5',
-      title: 'Hạn chót đóng học phí đợt đợt 1',
-      subject: 'Phòng Kế hoạch - Tài chính',
-      time: 'Đã quá hạn 2 ngày',
-      status: 'overdue',
-    ),
-  ];
-
   void _toggleComplete(String id) {
-    setState(() {
-      final index = _deadlines.indexWhere((d) => d.id == id);
-      if (index != -1) {
-        _deadlines[index].isCompleted = !_deadlines[index].isCompleted;
-      }
-    });
+    Provider.of<DeadlineProvider>(context, listen: false).toggleComplete(id);
   }
 
   void _syncGoogleCalendar() {
@@ -148,17 +91,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   onPressed: () {
                     if (titleController.text.isNotEmpty &&
                         subjectController.text.isNotEmpty) {
-                      setState(() {
-                        _deadlines.add(
-                          DeadlineItem(
-                            id: DateTime.now().toString(),
-                            title: titleController.text,
-                            subject: subjectController.text,
-                            time: 'Đang cập nhật',
-                            status: 'normal',
-                          ),
-                        );
-                      });
+                      Provider.of<DeadlineProvider>(
+                        context,
+                        listen: false,
+                      ).addDeadline(
+                        titleController.text,
+                        subjectController.text,
+                      );
                       Navigator.pop(context);
                     }
                   },
@@ -180,6 +119,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DeadlineProvider>(context);
+    final deadlines = provider.deadlines;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quản lý Deadline'),
@@ -206,9 +148,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              itemCount: _deadlines.length,
+              itemCount: deadlines.length,
               itemBuilder: (context, index) {
-                final deadline = _deadlines[index];
+                final deadline = deadlines[index];
                 return _buildDeadlineItem(deadline);
               },
             ),

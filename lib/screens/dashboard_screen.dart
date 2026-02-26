@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_text_styles.dart';
+import 'package:provider/provider.dart';
+import '../providers/analytics_provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AnalyticsProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Data & Analytics'),
@@ -35,9 +39,9 @@ class DashboardScreen extends StatelessWidget {
                 Expanded(
                   child: _buildPremiumStatCard(
                     title: 'Điểm TB',
-                    value: '8.45',
+                    value: provider.gpa.toStringAsFixed(2),
                     subtitle: 'Giỏi',
-                    progress: 8.45 / 10,
+                    progress: provider.gpa / 10,
                     icon: LucideIcons.graduationCap,
                     colors: [const Color(0xFF3B82F6), const Color(0xFF2563EB)],
                   ),
@@ -46,9 +50,10 @@ class DashboardScreen extends StatelessWidget {
                 Expanded(
                   child: _buildPremiumStatCard(
                     title: 'Tín chỉ',
-                    value: '110',
-                    subtitle: '/ 120 (91%)',
-                    progress: 110 / 120,
+                    value: provider.creditsEarned.toString(),
+                    subtitle:
+                        '/ \${provider.totalCredits} (\${(provider.creditProgress * 100).toInt()}%)',
+                    progress: provider.creditProgress,
                     icon: LucideIcons.bookOpen,
                     colors: [const Color(0xFF10B981), const Color(0xFF059669)],
                   ),
@@ -61,7 +66,7 @@ class DashboardScreen extends StatelessWidget {
               style: AppTextStyles.sectionHeader,
             ),
             const SizedBox(height: 16),
-            _buildBarChart(),
+            _buildBarChart(provider),
             const SizedBox(height: 24),
             Text(
               'Phân tích hành vi & Báo cáo',
@@ -148,16 +153,8 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBarChart() {
-    final List<Map<String, dynamic>> chartData = [
-      {'day': 'T2', 'value': 40.0, 'active': false},
-      {'day': 'T3', 'value': 60.0, 'active': false},
-      {'day': 'T4', 'value': 30.0, 'active': false},
-      {'day': 'T5', 'value': 80.0, 'active': true}, // Active day
-      {'day': 'T6', 'value': 50.0, 'active': false},
-      {'day': 'T7', 'value': 90.0, 'active': false},
-      {'day': 'CN', 'value': 20.0, 'active': false},
-    ];
+  Widget _buildBarChart(AnalyticsProvider provider) {
+    final chartData = provider.chartData;
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
@@ -177,62 +174,70 @@ class DashboardScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: chartData.map((data) {
+          children: List.generate(chartData.length, (index) {
+            final data = chartData[index];
             final double heightParam = data['value'] as double;
             final bool isActive = data['active'] as bool;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (isActive)
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryBlue,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      '80%',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+            return GestureDetector(
+              onTap: () {
+                provider.simulateAppUsage(index);
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (isActive)
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryBlue,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '\${heightParam.toInt()}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                Container(
-                  width: 32,
-                  height: heightParam,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: isActive
-                          ? [AppColors.primaryBlue, const Color(0xFF1E40AF)]
-                          : [
-                              AppColors.iconUnselected.withValues(alpha: 0.2),
-                              AppColors.iconUnselected.withValues(alpha: 0.1),
-                            ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                  Container(
+                    width: 32,
+                    height: heightParam,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: isActive
+                            ? [AppColors.primaryBlue, const Color(0xFF1E40AF)]
+                            : [
+                                AppColors.iconUnselected.withValues(alpha: 0.2),
+                                AppColors.iconUnselected.withValues(alpha: 0.1),
+                              ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    borderRadius: BorderRadius.circular(8),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  data['day'] as String,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                    color: isActive
-                        ? AppColors.primaryBlue
-                        : AppColors.textLight,
+                  const SizedBox(height: 12),
+                  Text(
+                    data['day'] as String,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      fontWeight: isActive
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: isActive
+                          ? AppColors.primaryBlue
+                          : AppColors.textLight,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
-          }).toList(),
+          }),
         ),
       ),
     );

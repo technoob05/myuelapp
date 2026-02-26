@@ -3,35 +3,9 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_text_styles.dart';
 
-class ChatMessage {
-  final String text;
-  final bool isMe;
-  final String time;
-
-  ChatMessage({required this.text, required this.isMe, required this.time});
-}
-
-class ChatThread {
-  final String id;
-  final String name;
-  final String lastMessage;
-  final String time;
-  final int unreadCount;
-  final bool isOnline;
-  final bool isGroup;
-  final List<ChatMessage> messages;
-
-  ChatThread({
-    required this.id,
-    required this.name,
-    required this.lastMessage,
-    required this.time,
-    required this.unreadCount,
-    required this.isOnline,
-    required this.isGroup,
-    required this.messages,
-  });
-}
+import 'package:provider/provider.dart';
+import '../providers/chat_provider.dart';
+import '../models/chat_model.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -41,135 +15,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final List<ChatThread> _threads = [
-    ChatThread(
-      id: '1',
-      name: 'TS. Nguyễn Văn A - Khoa CNTT',
-      lastMessage:
-          'Chào em, file hướng dẫn đồ án môn Hệ điều hành thầy đã upload lên khóa học trên hệ thống e-learning rồi nhé.',
-      time: '14:30',
-      unreadCount: 1,
-      isOnline: true,
-      isGroup: false,
-      messages: [
-        ChatMessage(text: 'Dạ em chào thầy ạ.', isMe: true, time: '14:00'),
-        ChatMessage(
-          text:
-              'Thầy cho em hỏi tuần này nhóm em báo cáo đồ án phần phân trang bộ nhớ, vậy tụi em dùng thư viện ngoài được không ạ?',
-          isMe: true,
-          time: '14:05',
-        ),
-        ChatMessage(
-          text:
-              'Chào em, file hướng dẫn đồ án môn Hệ điều hành thầy đã upload lên khóa học trên hệ thống e-learning rồi nhé. Trong guideline đã quy định rất rõ những gì được dùng và không được dùng.',
-          isMe: false,
-          time: '14:30',
-        ),
-      ],
-    ),
-    ChatThread(
-      id: '2',
-      name: 'Nhóm Lớp K24417B - Thống kê ứng dụng',
-      lastMessage:
-          'Minh Mẫn: Các bạn nhớ tối nay 22h deadline nộp file bài tập nhóm nhen!',
-      time: 'Hôm qua',
-      unreadCount: 0,
-      isOnline: false,
-      isGroup: true,
-      messages: [
-        ChatMessage(
-          text: 'Thứ 4 tuần sau mình thi giữa kỳ ở phòng mấy vậy mọi người?',
-          isMe: false,
-          time: '14:20',
-        ),
-        ChatMessage(
-          text: 'Lịch thi của trường báo là thi ở phòng B1.205 nha bạn.',
-          isMe: true,
-          time: '14:25',
-        ),
-        ChatMessage(text: 'Oke cảm ơn bạn.', isMe: false, time: '14:35'),
-        ChatMessage(
-          text:
-              'Minh Mẫn: Các bạn nhớ tối nay 22h deadline nộp file bài tập nhóm nhen! Ai chưa làm xong phần mình thì tranh thủ nha.',
-          isMe: false,
-          time: '18:00',
-        ),
-      ],
-    ),
-    ChatThread(
-      id: '3',
-      name: 'ThS. Trần Thị B - Cố vấn học tập',
-      lastMessage:
-          'Em nhớ cập nhật điểm rèn luyện cá nhân trên trang sinh viên trước thứ 6 này để cô duyệt nha.',
-      time: 'T2',
-      unreadCount: 0,
-      isOnline: true,
-      isGroup: false,
-      messages: [
-        ChatMessage(
-          text:
-              'Dạ cô ơi, điều kiện để được xét học bổng khuyến khích học tập kỳ tới là cần GPA bao nhiêu vậy ạ?',
-          isMe: true,
-          time: '09:00',
-        ),
-        ChatMessage(
-          text:
-              'Tùy theo số lượng sinh viên đăng ký nha em, nhưng thường để an toàn thì điểm phải từ 8.5 trở lên em ạ.',
-          isMe: false,
-          time: '10:30',
-        ),
-        ChatMessage(
-          text: 'Dạ vâng, em cảm ơn cô ạ.',
-          isMe: true,
-          time: '10:35',
-        ),
-        ChatMessage(
-          text:
-              'Em nhớ cập nhật điểm rèn luyện cá nhân trên trang sinh viên trước thứ 6 này để cô duyệt nha.',
-          isMe: false,
-          time: 'T2',
-        ),
-      ],
-    ),
-    ChatThread(
-      id: '4',
-      name: 'Nhóm đồ án LTUD Mobile',
-      lastMessage: 'Tuấn: Nay code xong push lên git nhớ báo nha.',
-      time: 'T7 tuần trước',
-      unreadCount: 5,
-      isOnline: false,
-      isGroup: true,
-      messages: [
-        ChatMessage(
-          text: 'Tối nay 8h mình họp online chia task làm giao diện nha.',
-          isMe: false,
-          time: '19:00',
-        ),
-        ChatMessage(
-          text: 'Ok nè, tui làm phần Dashboard với Black Box nha.',
-          isMe: true,
-          time: '19:15',
-        ),
-        ChatMessage(
-          text: 'Tuấn: Nay code xong push lên git nhớ báo nha.',
-          isMe: false,
-          time: 'T7 tuần trước',
-        ),
-      ],
-    ),
-  ];
-
-  void _openChat(ChatThread thread) {
+  void _openChat(ChatThread thread, ChatProvider provider) {
+    provider.markThreadAsRead(thread.id);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ChatDetailScreen(thread: thread)),
-    ).then((_) {
-      setState(() {});
-    });
+      MaterialPageRoute(
+        builder: (context) => ChatDetailScreen(threadId: thread.id),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ChatProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Academic Chat'),
@@ -190,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Text('Tin nhắn gần đây', style: AppTextStyles.sectionHeader),
           const SizedBox(height: 16),
-          ..._threads.map((thread) => _buildChatItem(thread)),
+          ...provider.threads.map((thread) => _buildChatItem(thread, provider)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -201,9 +60,9 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildChatItem(ChatThread thread) {
+  Widget _buildChatItem(ChatThread thread, ChatProvider provider) {
     return InkWell(
-      onTap: () => _openChat(thread),
+      onTap: () => _openChat(thread, provider),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
@@ -334,9 +193,9 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatDetailScreen extends StatefulWidget {
-  final ChatThread thread;
+  final String threadId;
 
-  const ChatDetailScreen({super.key, required this.thread});
+  const ChatDetailScreen({super.key, required this.threadId});
 
   @override
   State<ChatDetailScreen> createState() => _ChatDetailScreenState();
@@ -344,34 +203,24 @@ class ChatDetailScreen extends StatefulWidget {
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final TextEditingController _controller = TextEditingController();
-  late List<ChatMessage> _messages;
-
-  @override
-  void initState() {
-    super.initState();
-    _messages = List.from(widget.thread.messages);
-  }
 
   void _sendMessage() {
     if (_controller.text.trim().isEmpty) return;
 
-    setState(() {
-      _messages.add(
-        ChatMessage(
-          text: _controller.text.trim(),
-          isMe: true,
-          time: 'Vừa xong',
-        ),
-      );
-      _controller.clear();
-    });
+    final provider = Provider.of<ChatProvider>(context, listen: false);
+    provider.sendMessage(widget.threadId, _controller.text.trim());
+
+    _controller.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ChatProvider>(context);
+    final thread = provider.getThread(widget.threadId);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.thread.name),
+        title: Text(thread.name),
         elevation: 0,
         backgroundColor: Colors.transparent,
         flexibleSpace: Container(
@@ -393,9 +242,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: _messages.length,
+              itemCount: thread.messages.length,
               itemBuilder: (context, index) {
-                final msg = _messages[index];
+                final msg = thread.messages[index];
                 return _buildMessageBubble(msg);
               },
             ),
