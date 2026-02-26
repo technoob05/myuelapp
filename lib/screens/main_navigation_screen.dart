@@ -145,54 +145,49 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true, // Allows background to flow under navbar
       body: _screens[_currentIndex],
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primaryBlue.withValues(alpha: 0.15),
-                blurRadius: 30,
-                offset: const Offset(0, 10),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primaryBlue.withValues(alpha: 0.1),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          child: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(LucideIcons.home),
+                label: 'Trang chủ',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(LucideIcons.pieChart),
+                label: 'Thống kê',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(LucideIcons.messageSquare),
+                label: 'Chat',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(LucideIcons.calendar),
+                label: 'Lịch',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(LucideIcons.bell),
+                label: 'Thông báo',
               ),
             ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: BottomNavigationBar(
-              currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(LucideIcons.home),
-                  label: 'Trang chủ',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(LucideIcons.pieChart),
-                  label: 'Thống kê',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(LucideIcons.messageSquare),
-                  label: 'Chat',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(LucideIcons.calendar),
-                  label: 'Lịch',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(LucideIcons.bell),
-                  label: 'Thông báo',
-                ),
-              ],
-            ),
           ),
         ),
       ),
