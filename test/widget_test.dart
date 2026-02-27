@@ -7,8 +7,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:myuelapp/main.dart';
-
 void main() {
   testWidgets('MyUEL App smoke test', (WidgetTester tester) async {
     // Basic test to ensure the test suite is happy.

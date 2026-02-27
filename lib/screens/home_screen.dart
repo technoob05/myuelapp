@@ -56,6 +56,216 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showQuickAssistant(context),
+        backgroundColor: AppColors.primaryBlue,
+        child: const Icon(LucideIcons.messageSquare, color: Colors.white),
+      ),
+    );
+  }
+
+  void _showQuickAssistant(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.5,
+        padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                const Icon(LucideIcons.sparkles, color: AppColors.primaryBlue),
+                const SizedBox(width: 12),
+                Text('Trợ lý My UEL', style: AppTextStyles.sectionHeader),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildAssistantOption(
+                    LucideIcons.calendarPlus,
+                    'Thêm Deadline mới',
+                    onTap: () => _showAddDeadlinePopup(context),
+                  ),
+                  _buildAssistantOption(
+                    LucideIcons.helpCircle,
+                    'Hỏi về học phí',
+                    onTap: () {
+                      Navigator.pop(context);
+                      _navigateToGeneric(
+                        context,
+                        'Học phí sinh viên',
+                        LucideIcons.badgeDollarSign,
+                      );
+                    },
+                  ),
+                  _buildAssistantOption(
+                    LucideIcons.calculator,
+                    'Dự tính GPA',
+                    onTap: () {
+                      Navigator.pop(context);
+                      _navigateToGeneric(
+                        context,
+                        'Kết quả học tập',
+                        LucideIcons.barChart2,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Nhập câu hỏi hoặc yêu cầu...',
+                filled: true,
+                fillColor: AppColors.scaffoldBackground,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: const Icon(
+                  LucideIcons.send,
+                  color: AppColors.primaryBlue,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAssistantOption(
+    IconData icon,
+    String label, {
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: AppColors.primaryBlue, size: 20),
+      title: Text(label, style: AppTextStyles.bodyMedium),
+      trailing: const Icon(LucideIcons.chevronRight, size: 16),
+      onTap: onTap,
+    );
+  }
+
+  void _showAddDeadlinePopup(BuildContext context) {
+    Navigator.pop(context); // Close assistant modal
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+          top: 24,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text('Thêm Deadline mới', style: AppTextStyles.sectionHeader),
+            const SizedBox(height: 16),
+            _buildDialogTextField('Tiêu đề bài tập/thi', LucideIcons.type),
+            const SizedBox(height: 12),
+            _buildDialogTextField('Môn học', LucideIcons.book),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildDialogTextField(
+                    'Ngày hết hạn',
+                    LucideIcons.calendar,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildDialogTextField('Giờ', LucideIcons.clock),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _buildDialogTextField('Ghi chú', LucideIcons.alignLeft),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('🎉 Đã thêm deadline thành công!'),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: AppColors.successGreen,
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryBlue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                child: const Text(
+                  'Lưu Deadline',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDialogTextField(String hint, IconData icon) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: hint,
+        prefixIcon: Icon(icon, size: 18, color: AppColors.primaryBlue),
+        filled: true,
+        fillColor: AppColors.scaffoldBackground,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+      ),
     );
   }
 
