@@ -497,15 +497,6 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                       ),
-                      FeatureIconButton(
-                        icon: LucideIcons.lineChart,
-                        label: 'Data & Analytics',
-                        onTap: () => _navigateToGeneric(
-                          context,
-                          'Data & Analytics',
-                          LucideIcons.lineChart,
-                        ),
-                      ),
                     ],
                   ),
                 ],

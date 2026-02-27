@@ -5,11 +5,40 @@ import '../models/notification_model.dart';
 class NotificationProvider with ChangeNotifier {
   final List<NotificationModel> _notifications = [
     NotificationModel(
+      id: 'exam1',
+      sender: 'Phòng Khảo thí',
+      message:
+          'LỊCH THI CUỐI KỲ: Quản trị thương hiệu (E) | Ngày: 28/03/2026 - Giờ: 12g30 | Phòng: A.604 | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Tự luận',
+      time: 'Vừa xong',
+      type: 'schedule',
+      icon: LucideIcons.calendarClock,
+      isUnread: true,
+    ),
+    NotificationModel(
+      id: 'exam2',
+      sender: 'Phòng Khảo thí',
+      message:
+          'LỊCH THI CUỐI KỲ: Thương mại điện tử (E) | Ngày: 29/03/2026 - Giờ: 10g00 | Phòng: Online 19 | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Tiểu luận, Đồ án',
+      time: '2 phút trước',
+      type: 'schedule',
+      icon: LucideIcons.calendarClock,
+      isUnread: true,
+    ),
+    NotificationModel(
+      id: 'exam3',
+      sender: 'Phòng Khảo thí',
+      message:
+          'LỊCH THI CUỐI KỲ: Giao tiếp kinh doanh (E) | Ngày: 02/04/2026 - Giờ: 12g30 | Phòng: A.310 bis | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Thi trên Laptop cá nhân',
+      time: '5 phút trước',
+      type: 'schedule',
+      icon: LucideIcons.calendarClock,
+    ),
+    NotificationModel(
       id: '1',
       sender: 'Giao tiếp kinh doanh',
       message:
           'THÔNG BÁO: Đổi phòng học môn Giao tiếp kinh doanh sang phòng B1.205 bắt đầu từ tuần này.',
-      time: 'Vừa xong',
+      time: '1 giờ trước',
       type: 'schedule',
       icon: LucideIcons.bookOpen,
     ),

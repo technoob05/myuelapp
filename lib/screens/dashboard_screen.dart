@@ -52,7 +52,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'Tín chỉ',
                     value: provider.creditsEarned.toString(),
                     subtitle:
-                        '/ \${provider.totalCredits} (\${(provider.creditProgress * 100).toInt()}%)',
+                        '/ ${provider.totalCredits} (${(provider.creditProgress * 100).toInt()}%)',
                     progress: provider.creditProgress,
                     icon: LucideIcons.bookOpen,
                     colors: [const Color(0xFF10B981), const Color(0xFF059669)],
@@ -178,63 +178,69 @@ class DashboardScreen extends StatelessWidget {
             final data = chartData[index];
             final double heightParam = data['value'] as double;
             final bool isActive = data['active'] as bool;
-            return GestureDetector(
-              onTap: () {
-                provider.simulateAppUsage(index);
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (isActive)
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryBlue,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        '\${heightParam.toInt()}%',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+            return Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  provider.simulateAppUsage(index);
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (isActive)
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryBlue,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '${heightParam.toInt()}%',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  Container(
-                    width: 32,
-                    height: heightParam,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: isActive
-                            ? [AppColors.primaryBlue, const Color(0xFF1E40AF)]
-                            : [
-                                AppColors.iconUnselected.withValues(alpha: 0.2),
-                                AppColors.iconUnselected.withValues(alpha: 0.1),
-                              ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                    Container(
+                      width: 28,
+                      height: heightParam,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: isActive
+                              ? [AppColors.primaryBlue, const Color(0xFF1E40AF)]
+                              : [
+                                  AppColors.iconUnselected.withValues(
+                                    alpha: 0.2,
+                                  ),
+                                  AppColors.iconUnselected.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    data['day'] as String,
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      fontWeight: isActive
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      color: isActive
-                          ? AppColors.primaryBlue
-                          : AppColors.textLight,
+                    const SizedBox(height: 12),
+                    Text(
+                      data['day'] as String,
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: isActive
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: isActive
+                            ? AppColors.primaryBlue
+                            : AppColors.textLight,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }),
