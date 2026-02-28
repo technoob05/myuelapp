@@ -18,7 +18,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<NotificationProvider>(context);
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Thông báo'),
@@ -49,18 +49,20 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             indicatorColor: AppColors.textWhite,
             tabs: const [
               Tab(text: 'Tất cả'),
-              Tab(text: 'Giảng viên/Phòng ban'),
-              Tab(text: 'Phòng/Giờ học'),
-              Tab(text: 'Nhóm chat'),
+              Tab(text: 'Giảng viên'),
+              Tab(text: 'Phòng ban'),
+              Tab(text: 'Lớp học/Lịch thi'),
+              Tab(text: 'Sự kiện'),
             ],
           ),
         ),
         body: TabBarView(
           children: [
             _buildNotificationList(null),
-            _buildNotificationList('teacher_dept'),
+            _buildNotificationList('teacher'),
+            _buildNotificationList('department'),
             _buildNotificationList('schedule'),
-            _buildNotificationList('chat'),
+            _buildNotificationList('event'),
           ],
         ),
       ),

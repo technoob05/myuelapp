@@ -6,6 +6,7 @@ import '../widgets/feature_icon_button.dart';
 import '../widgets/section_header.dart';
 import 'black_box_screen.dart';
 import 'generic_feature_screen.dart';
+import 'all_deadlines_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -102,6 +103,19 @@ class _HomeScreenState extends State<HomeScreen>
                     LucideIcons.calendarPlus,
                     'Thêm Deadline mới',
                     onTap: () => _showAddDeadlinePopup(context),
+                  ),
+                  _buildAssistantOption(
+                    LucideIcons.listTodo,
+                    'Xem tất cả lịch trình',
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AllDeadlinesScreen(),
+                        ),
+                      );
+                    },
                   ),
                   _buildAssistantOption(
                     LucideIcons.helpCircle,

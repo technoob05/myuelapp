@@ -5,99 +5,84 @@ import '../models/notification_model.dart';
 class NotificationProvider with ChangeNotifier {
   final List<NotificationModel> _notifications = [
     NotificationModel(
-      id: 'exam1',
+      id: 'teacher1',
+      sender: 'ThS. Vũ Thị Hồng Ngọc - Marketing kỹ thuật số',
+      message:
+          'Cô đã tải tài liệu ôn tập chương 4 lên E-learning. Các em tải về chuẩn bị cho bài thảo luận tuần tới nhé.',
+      time: '10:30 - 28/02/2026',
+      type: 'teacher',
+      icon: LucideIcons.userCheck,
+      isUnread: true,
+    ),
+    NotificationModel(
+      id: 'teacher2',
+      sender: 'TS. Nguyễn Thị Nhật Minh - Giao tiếp KD',
+      message:
+          'Thông báo: Lớp Giao tiếp kinh doanh hôm nay sẽ chuyển sang hình thức học Online qua Google Meet. Link đã gửi qua email.',
+      time: '08:15 - 28/02/2026',
+      type: 'teacher',
+      icon: LucideIcons.video,
+      isUnread: true,
+    ),
+    NotificationModel(
+      id: 'dept1',
+      sender: 'Phòng Công tác sinh viên',
+      message:
+          'Thông báo về việc đăng ký học bổng khuyến khích học tập học kỳ 2 (2025-2026). Hạn chót: 15/03/2026.',
+      time: 'Hôm qua',
+      type: 'department',
+      icon: LucideIcons.award,
+      isUnread: true,
+    ),
+    NotificationModel(
+      id: 'dept2',
+      sender: 'Phòng Kế hoạch - Tài chính',
+      message:
+          'Nhắc nhở: Hạn chót quyết toán học phí học kỳ 2 là ngày 30/03/2026. Sinh viên vui lòng hoàn tất đúng hạn.',
+      time: '2 ngày trước',
+      type: 'department',
+      icon: LucideIcons.receipt,
+      isUnread: false,
+    ),
+    NotificationModel(
+      id: 'schedule1',
       sender: 'Phòng Khảo thí',
       message:
-          'LỊCH THI CUỐI KỲ: Quản trị thương hiệu (E) | Ngày: 28/03/2026 - Giờ: 12g30 | Phòng: A.604 | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Tự luận',
+          'LỊCH THI DỰ KIẾN: Quản trị thương hiệu (E) | Ngày 28/03/2026 | Phòng A.604. Vui lòng kiểm tra lại trên cổng thông tin.',
       time: 'Vừa xong',
       type: 'schedule',
       icon: LucideIcons.calendarClock,
       isUnread: true,
     ),
     NotificationModel(
-      id: 'exam2',
-      sender: 'Phòng Khảo thí',
+      id: 'schedule2',
+      sender: 'Phòng Đào tạo',
       message:
-          'LỊCH THI CUỐI KỲ: Thương mại điện tử (E) | Ngày: 29/03/2026 - Giờ: 10g00 | Phòng: Online 19 | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Tiểu luận, Đồ án',
-      time: '2 phút trước',
-      type: 'schedule',
-      icon: LucideIcons.calendarClock,
-      isUnread: true,
-    ),
-    NotificationModel(
-      id: 'exam3',
-      sender: 'Phòng Khảo thí',
-      message:
-          'LỊCH THI CUỐI KỲ: Giao tiếp kinh doanh (E) | Ngày: 02/04/2026 - Giờ: 12g30 | Phòng: A.310 bis | Địa điểm: Cơ sở chính, Thủ Đức | Ghi chú: Thi trên Laptop cá nhân',
-      time: '5 phút trước',
-      type: 'schedule',
-      icon: LucideIcons.calendarClock,
-    ),
-    NotificationModel(
-      id: '1',
-      sender: 'Giao tiếp kinh doanh',
-      message:
-          'THÔNG BÁO: Đổi phòng học môn Giao tiếp kinh doanh sang phòng B1.205 bắt đầu từ tuần này.',
+          'THÔNG BÁO: Đã có lịch học chính thức tháng 03/2026. Sinh viên xem chi tiết tại mục Thời khóa biểu.',
       time: '1 giờ trước',
       type: 'schedule',
-      icon: LucideIcons.bookOpen,
+      icon: LucideIcons.calendarDays,
+      isUnread: false,
     ),
     NotificationModel(
-      id: '2',
-      sender: 'Lớp: K234102E',
+      id: 'event1',
+      sender: 'Liên Chi hội Khoa Quản trị Kinh doanh',
       message:
-          'Nhắc nhở: Lớp chúng ta sẽ học bù môn Quản trị thương hiệu vào sáng Thứ 7 (Tiết 1-3) tại phòng A2.304 nhé.',
-      time: '15 phút trước',
-      type: 'schedule',
-      icon: LucideIcons.users,
-    ),
-    NotificationModel(
-      id: '3',
-      sender: 'PhD Nguyễn Thị Nhật Minh - Khoa QTKD',
-      message:
-          'Cô đã cập nhật điểm danh và điểm cộng trên hệ thống. Các em kiểm tra lại nhé.',
-      time: '2 giờ trước',
-      type: 'teacher_dept',
-      icon: LucideIcons.userCheck,
-    ),
-    NotificationModel(
-      id: '4',
-      sender: 'Phòng Công tác sinh viên',
-      message:
-          'Thông báo về việc khai báo y tế và cập nhật thông tin sổ tự quản sinh viên.',
-      time: 'Hôm qua',
-      type: 'teacher_dept',
-      icon: LucideIcons.shieldAlert,
+          'Đăng ký ngay: Cuộc thi "Marketing Challenge 2026" - Cơ hội rinh giải thưởng khủng và chứng nhận xịn.',
+      time: '3 giờ trước',
+      type: 'event',
+      icon: LucideIcons.megaphone,
       isUnread: true,
     ),
     NotificationModel(
-      id: '5',
-      sender: 'K234102E',
+      id: 'event2',
+      sender: 'Marketing UEL Club',
       message:
-          'Tin nhắn mới từ Minh Mẫn: Các bạn nhớ tối nay 22h deadline nộp file bài tập nhóm nhen!',
-      time: 'Hôm qua',
-      type: 'chat',
-      icon: LucideIcons.messageSquare,
-      isUnread: false,
-    ),
-    NotificationModel(
-      id: '6',
-      sender: '[UEL] QTTH_ 252EBM505502',
-      message: 'Tin nhắn mới từ Linh: Vậy mình học bù sáng thứ 7 nha các em.',
-      time: '2 ngày trước',
-      type: 'chat',
-      icon: LucideIcons.messageSquare,
-      isUnread: false,
-    ),
-    NotificationModel(
-      id: '7',
-      sender: 'Phòng Kế hoạch - Tài chính',
-      message:
-          'Nhắc nhở đóng học phí học kỳ 2 năm học. Hạn chót là ngày 30/04/2026.',
-      time: 'Tuần trước',
-      type: 'teacher_dept',
-      icon: LucideIcons.receipt,
-      isUnread: false,
+          'Workshop: "Thấu hiểu người dùng qua dữ liệu số" sẽ diễn ra vào sáng Thứ 4 tới tại Hội trường A.',
+      time: '5 giờ trước',
+      type: 'event',
+      icon: LucideIcons.sparkles,
+      isUnread: true,
     ),
   ];
 

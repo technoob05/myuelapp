@@ -9,7 +9,11 @@ import 'providers/chat_provider.dart';
 import 'providers/deadline_provider.dart';
 import 'providers/analytics_provider.dart';
 
-void main() {
+import 'package:intl/date_symbol_data_local.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('vi_VN', null);
   runApp(
     MultiProvider(
       providers: [

@@ -5,7 +5,7 @@ class NotificationModel {
   final String sender;
   final String message;
   final String time;
-  final String type; // 'academic', 'personal', 'system'
+  final String type; // 'teacher', 'department', 'schedule', 'event'
   final IconData icon;
   bool isUnread;
 
